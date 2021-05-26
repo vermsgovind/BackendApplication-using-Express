@@ -13,6 +13,6 @@ router.patch("/:id",updateNameById);
 // router.put("/:id",updateById);
 
 
-router.get("/age",getUsersByAge);
+// router.get("/age",getUsersByAge);
 export default router;
 

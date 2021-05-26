@@ -1,5 +1,7 @@
 // This file is using actual database
+
 import {User} from "../model/user.js";
+//imported the collection which we have created inside model
 
 export const getUsers = (req,res)=>{
   
@@ -94,7 +96,8 @@ export const updateNameById = (req,res)=>{
 // use of aggregation
 export const getUsersByAge = (req,res)=>{
      User.aggregate(
-       [{$sort:{age:1}}]
+      //  [{$sort:{age:1}}]
+      [{$match:{age:"23"}}]
      ).then(
        (result)=>{
          res.send(result);
