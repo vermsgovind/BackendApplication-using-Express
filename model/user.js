@@ -23,7 +23,7 @@ const userSchema = new Schema({  // we are defining a schema with attributes nam
         type:String,
         required:true
     }
-}, {timestamps:true});
+}, {timestamps:true}); // the timestamps will create two more attribute i.e createdtime and updatedtime
 
 export const User = mongoose.model('User',userSchema);// the User inside model will be available as collection in DB
 // this User now pointing to the created collection 

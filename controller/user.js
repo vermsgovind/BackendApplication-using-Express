@@ -3,6 +3,7 @@
 import {User} from "../model/user.js";
 //imported the collection which we have created inside model
 
+// the API's which we have used here ex:-find(),findById() etc. comes with collection(i.e User now) by default
 export const getUsers = (req,res)=>{
   
   User.find().then(
