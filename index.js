@@ -4,6 +4,24 @@ import bodyParser from "body-parser";
 import userRoutes from "./routes/user.js";
 import mongoose from "mongoose"; // mongoose is a mongoDB client
 
+import tutorialRoutes from "./routes/tutorial.js";
+import pgdb from "./model/index.js";
+
+pgdb.sequelize.sync({force:true}) // sync will ensure that the schema we have defined would get create in database
+.then(                            // force:true means whenever we will start our application
+    result=>{                    // the existing table will get flush off and we will get a 
+        console.log(result);     // fresh table in database
+    }
+)
+.catch(
+    err=>{
+        console.log(err);
+    }
+)
+
+
+
+
 const app = express();
 const PORT = 8888;
 const dbURL = 'mongodb+srv://vermsgovind:Aashiqui2@@cluster0.qj414.mongodb.net/tutorialApp?retryWrites=true&w=majority';
@@ -28,6 +46,7 @@ app.get("/",(req, res)=>{
 })
 
 app.use("/user",userRoutes);
+app.use("/tutorial",tutorialRoutes);
 
 
 
