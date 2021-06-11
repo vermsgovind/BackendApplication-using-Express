@@ -7,6 +7,8 @@ import mongoose from "mongoose"; // mongoose is a mongoDB client
 import tutorialRoutes from "./routes/tutorial.js";
 import pgdb from "./model/index.js";
 
+
+//sync initialize the database with defined schema or table --very impotant step
 pgdb.sequelize.sync({force:true}) // sync will ensure that the schema we have defined would get create in database
 .then(                            // force:true means whenever we will start our application
     result=>{                    // the existing table will get flush off and we will get a 
@@ -48,5 +50,9 @@ app.get("/",(req, res)=>{
 app.use("/user",userRoutes);
 app.use("/tutorial",tutorialRoutes);
 
-
+// use this when you dont want to use mongodb
+// console.log("connected to the database");
+// app.listen(PORT,()=>{ // now we are starting server after starting the database
+//     console.log(`server is running at http://127.0.0.1:${PORT}`);
+// })
 
