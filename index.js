@@ -6,7 +6,7 @@ import mongoose from "mongoose"; // mongoose is a mongoDB client
 
 import tutorialRoutes from "./routes/tutorial.js";
 import pgdb from "./model/index.js";
-
+import authRoutes from "./routes/auth.routes.js";
 
 const Role = pgdb.roles;//getting the access of roles schema
 function initializeDB(){
@@ -75,7 +75,7 @@ app.get("/",(req, res)=>{
 
 app.use("/user",userRoutes);
 app.use("/tutorial",tutorialRoutes);
-
+app.use("/api/auth", authRoutes)
 // app.use(corsOption)
 
 // use this when you dont want to use mongodb
