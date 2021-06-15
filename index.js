@@ -6,13 +6,37 @@ import mongoose from "mongoose"; // mongoose is a mongoDB client
 
 import tutorialRoutes from "./routes/tutorial.js";
 import pgdb from "./model/index.js";
+import authRoutes from "./routes/auth.routes.js";
+
+const Role = pgdb.roles;//getting the access of roles schema
+function initializeDB(){
+    Role.create(
+        {
+            id:1,
+            name:"admin"
+        }
+    )
+    Role.create(
+        {
+            id:2,
+            name:"moderator"
+        }
+    )
+    Role.create(
+        {
+            id:3,
+            name:"user"
+        }
+    )
+}
 
 
-//sync initialize the database with defined schema or table --very impotant step
-pgdb.sequelize.sync({force:true}) // sync will ensure that the schema we have defined would get create in database
-.then(                            // force:true means whenever we will start our application
-    result=>{                    // the existing table will get flush off and we will get a 
-        console.log(result);     // fresh table in database
+//sync() will creates new tables according to the schema specified in the model
+pgdb.sequelize.sync({force:true}) // force:true means whenever we will start our application
+.then(                            // we will get fresh or enpty table
+    result=>{                    
+        console.log(result);
+        initializeDB(); //will initailize roles table with roles
     }
 )
 .catch(
@@ -21,7 +45,9 @@ pgdb.sequelize.sync({force:true}) // sync will ensure that the schema we have de
     }
 )
 
-
+var corsOption ={
+    origin:"http://localhost:8000"
+}
 
 
 const app = express();
@@ -49,6 +75,8 @@ app.get("/",(req, res)=>{
 
 app.use("/user",userRoutes);
 app.use("/tutorial",tutorialRoutes);
+app.use("/api/auth", authRoutes)
+// app.use(corsOption)
 
 // use this when you dont want to use mongodb
 // console.log("connected to the database");
